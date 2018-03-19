@@ -4,10 +4,10 @@ const amazon = require("amazon-product-api");
 const request = require("request");
 const throttledRequest = require("throttled-request")(request);
 
-throttledRequest.configure({
-  requests: 5,
-  milliseconds: 1000,
-});
+// throttledRequest.configure({
+//   requests: 1,
+//   milliseconds: 1000,
+// });
 
 if (result.error) {
   throw result.error;
@@ -25,7 +25,10 @@ const client = amazon.createClient({
 
 function itemSearch({ keywords = "S.H. Figuarts", searchIndex = "Toys", responseGroup = "Images" } = {}) {
   return client.itemSearch({
-    request: throttledRequest,
+    request: throttledRequest.configure({
+      requests: 1,
+      milliseconds: 1000,
+    }),
     keywords,
     searchIndex,
     responseGroup,
@@ -39,7 +42,10 @@ function itemSearch({ keywords = "S.H. Figuarts", searchIndex = "Toys", response
 
 function itemLookup() {
   return client.itemLookup({
-    request: throttledRequest,
+    request: throttledRequest.configure({
+      requests: 1,
+      milliseconds: 1000,
+    }),
     idType: "ASIN",
     itemId: "B078K3YWN3",
   }).then(results =>

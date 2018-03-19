@@ -21,12 +21,12 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.get("/list", (req, res, next) => {
-//   // console.log("req.query", req.query);
-//   itemSearch(req.query)
-//     .then(data => res.json(data))
-//     .catch(next);
-// });
+app.get("/list", (req, res, next) => {
+  // console.log("req.query", req.query);
+  itemSearch(req.query)
+    .then(data => res.json(data))
+    .catch(next);
+});
 
 app.get("/item", (req, res, next) => {
   // console.log("req.query", req.query);
