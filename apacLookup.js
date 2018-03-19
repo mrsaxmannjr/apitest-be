@@ -1,4 +1,5 @@
-const result = require("dotenv").config();
+const path = require("path");
+const result = require("dotenv").config({ path: path.resolve("./.env") });
 const amazon = require("amazon-product-api");
 
 if (result.error) {
