@@ -28,6 +28,12 @@ app.get("/item", (req, res, next) => {
     .catch(next);
 });
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Yo",
+  });
+});
+
 app.use((req, res, next) => {
   const err = new Error("Not Found");
   res.status(404);
