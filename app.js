@@ -4,7 +4,7 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-// const { itemSearch, itemLookup } = require("./apacLookup");
+const { itemSearch, itemLookup } = require("./apacLookup");
 
 const app = express();
 
@@ -14,6 +14,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Yo",
+  });
+});
+
 // app.get("/list", (req, res, next) => {
 //   // console.log("req.query", req.query);
 //   itemSearch(req.query)
@@ -21,17 +27,11 @@ app.use(cors());
 //     .catch(next);
 // });
 
-// app.get("/item", (req, res, next) => {
-//   // console.log("req.query", req.query);
-//   itemLookup(req.query)
-//     .then(data => res.json(data))
-//     .catch(next);
-// });
-
-app.get("/", (req, res) => {
-  res.json({
-    message: "Yo",
-  });
+app.get("/item", (req, res, next) => {
+  // console.log("req.query", req.query);
+  itemLookup(req.query)
+    .then(data => res.json(data))
+    .catch(next);
 });
 
 app.use((req, res, next) => {
