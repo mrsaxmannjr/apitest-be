@@ -1,6 +1,8 @@
 const path = require("path");
 const result = require("dotenv").config({ path: path.resolve("./.env") });
 const amazon = require("amazon-product-api");
+const request = require("request");
+const throttledRequest = require("throttled-request")(request);
 
 if (result.error) {
   throw result.error;
@@ -18,6 +20,7 @@ const client = amazon.createClient({
 
 function itemSearch({ keywords = "S.H. Figuarts", searchIndex = "Toys", responseGroup = "Images" } = {}) {
   return client.itemSearch({
+    request: throttledRequest,
     keywords,
     searchIndex,
     responseGroup,
