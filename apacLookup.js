@@ -34,6 +34,7 @@ function itemSearch({ keywords = "S.H. Figuarts", searchIndex = "Toys", response
 
 function itemLookup() {
   return client.itemLookup({
+    request: throttledRequest,
     idType: "ASIN",
     itemId: "B078K3YWN3",
   }).then(results =>
