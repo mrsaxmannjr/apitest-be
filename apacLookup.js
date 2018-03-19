@@ -4,6 +4,11 @@ const amazon = require("amazon-product-api");
 const request = require("request");
 const throttledRequest = require("throttled-request")(request);
 
+throttledRequest.configure({
+  requests: 5,
+  milliseconds: 1000,
+});
+
 if (result.error) {
   throw result.error;
 }
