@@ -21,15 +21,15 @@ const client = amazon.createClient({
   awsSecret: process.env.AWS_SECRET,
 });
 
-// client.itemSearch({
-//   keywords: "S.H. Figuarts",
-//   searchIndex: "Toys",
-//   responseGroup: "ItemAttributes,Offers,Images",
-// }).then(results => {
-//   console.log(results);
-// }).catch(err => {
-//   console.log(err);
-// });
+client.itemSearch({
+  keywords: "S.H. Figuarts",
+  searchIndex: "Toys",
+  responseGroup: "ItemAttributes,Offers,Images",
+}).then(results => {
+  console.log(results, null, 2);
+}).catch(err => {
+  console.log(err);
+});
 
 // app.get("/amazon/:index", function* () {
 //   this.body = yield client.itemSearch({
@@ -44,7 +44,7 @@ const client = amazon.createClient({
 //   idType: "ASIN",
 //   itemId: "B078K3YWN3",
 // }).then(results => {
-//   console.log(JSON.stringify(results));
+//   console.log(JSON.stringify(results, null, 2));
 // }).catch(err => {
 //   console.log(err);
 // });
@@ -62,9 +62,15 @@ const client = amazon.createClient({
 
 
 app.get("/", (req, res) => {
-  res.json({
-    message: "yo",
-  });
+  res.send(
+    client.itemSearch({
+      keywords: "S.H. Figuarts",
+      searchIndex: "Toys",
+      responseGroup: "ItemAttributes,Offers,Images",
+    }).then(results => results).catch(err => {
+      console.log(err);
+    }),
+  );
 });
 
 // catch 404 and forward to error handler
