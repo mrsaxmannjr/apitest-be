@@ -1,5 +1,4 @@
-const path = require("path");
-const result = require("dotenv").config({ path: path.resolve("./.env") });
+const result = require("dotenv").config();
 const amazon = require("amazon-product-api");
 const request = require("request");
 const throttledRequest = require("throttled-request")(request);
