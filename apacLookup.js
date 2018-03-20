@@ -1,4 +1,10 @@
-const result = require("dotenv").config();
+const dotenv = require("dotenv");
+
+let result = {};
+if (process.env.NODE_ENV !== "production") {
+  result = dotenv.config();
+}
+
 const amazon = require("amazon-product-api");
 const request = require("request");
 const throttledRequest = require("throttled-request")(request);
