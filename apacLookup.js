@@ -9,18 +9,9 @@ const amazon = require("amazon-product-api");
 const request = require("request");
 const throttledRequest = require("throttled-request")(request);
 
-// throttledRequest.configure({
-//   requests: 1,
-//   milliseconds: 1000,
-// });
-
 if (result.error) {
   throw result.error;
 }
-
-// console.log("config result.parsed", result.parsed);
-
-// console.log(process.env);
 
 const client = amazon.createClient({
   awsTag: process.env.AWS_TAG,
@@ -28,22 +19,42 @@ const client = amazon.createClient({
   awsSecret: process.env.AWS_SECRET,
 });
 
-function itemSearch({ keywords = "S.H. Figuarts", searchIndex = "Toys", responseGroup = "Images" } = {}) {
+function itemSearch({ keywords = "S.H. Figuarts, Dragon Ball", searchIndex = "Toys", responseGroup = "Images,ItemAttributes,OfferFull" } = {}) {
   return client.itemSearch({
-    request: throttledRequest.configure({
-      requests: 1,
-      milliseconds: 1000,
-    }),
     keywords,
     searchIndex,
     responseGroup,
-  }).then(results =>
-    // console.log(results, null, 2);
-    results,
-  ).catch(err => {
+  }).then(data => {
+    console.log(JSON.stringify(data, null, 2));
+    return data;
+  }).catch(err => {
     console.log(err);
   });
 }
+
+// const itemSearchTotalPages = ({ keywords = "S.H. Figuarts, Dragon Ball", searchIndex = "Toys", responseGroup = "Images,ItemAttributes,OfferFull" } = {}) => {
+//   client.itemSearch({
+//     keywords,
+//     searchIndex,
+//     responseGroup,
+//   }, (err, results, response) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       // console.log(results);
+//       // console.log("Total Pages: ", response[0].TotalPages);
+//       const allPages = response[0].TotalPages;
+
+//       console.log("All Pages: ", allPages);
+//     }
+//   });
+// };
+// function getAllPages() {
+//   return itemSearchTotalPages();
+// }
+
+// getAllPages();
+
 
 function itemLookup() {
   return client.itemLookup({
@@ -62,5 +73,5 @@ function itemLookup() {
 }
 
 module.exports = {
-  itemSearch, itemLookup,
+  itemLookup, itemSearch,
 };

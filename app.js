@@ -5,7 +5,7 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { itemSearch, itemLookup } = require("./apacLookup");
+const { itemSearch, itemLookup, itemSearchPages } = require("./apacLookup");
 
 const app = express();
 
