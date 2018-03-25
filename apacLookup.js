@@ -64,6 +64,7 @@ function itemLookup() {
     }),
     idType: "ASIN",
     itemId: "B078K3YWN3",
+    responseGroup: "Images,ItemAttributes",
   }).then(results =>
     // console.log(JSON.stringify(results, null, 2));
     results,
