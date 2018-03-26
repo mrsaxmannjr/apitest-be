@@ -19,7 +19,7 @@ const client = amazon.createClient({
   awsSecret: process.env.AWS_SECRET,
 });
 
-function itemSearch({ keywords = "S.H. Figuarts, Dragon Ball", searchIndex = "Toys", responseGroup = "Images,ItemAttributes,OfferFull" } = {}) {
+function itemSearch({ keywords = "S.H. Figuarts, Bandai Tamashii Nations, Action Figure", searchIndex = "Toys", responseGroup = "Images,ItemAttributes,OfferFull" } = {}) {
   return client.itemSearch({
     keywords,
     searchIndex,
